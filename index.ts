@@ -1,4 +1,5 @@
 import express, { Router } from "express";
+import path from 'path';
 import glob from "glob";
 
 export class RouteHandler {
@@ -6,7 +7,7 @@ export class RouteHandler {
   private router: Router;
 
   constructor(folderLocation: string) {
-    this.folder = folderLocation;
+    this.folder = path.join(__dirname, folderLocation);
     this.router = express.Router();
     this.bindRoutes();
   }
