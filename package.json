@@ -12,6 +12,7 @@
   "author": "gijslaarman",
   "license": "ISC",
   "dependencies": {
+    "@types/node": "^14.14.37",
     "express": "^4.17.1",
     "glob": "^7.1.6"
   },
