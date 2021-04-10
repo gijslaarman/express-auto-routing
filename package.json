@@ -4,6 +4,7 @@
   "description": "Auto generated routes based of a specified folder",
   "main": "index.ts",
   "scripts": {
+    "build": "tsc .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
