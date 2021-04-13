@@ -1,7 +1,5 @@
 # Express route generator
 
-> ⚠️ Typescript only currently
-
 Let the folder structure generate how the routes should be made, and avoid the boilerplate.
 
 Dependencies:
