@@ -33,10 +33,11 @@ export class RouteHandler {
         routes.forEach((route, index) => {
           const methods = require(route)
           const endpoint = endpoints[index]
-          for (const method in methods) {
+
+          Object.keys(methods).forEach((method: string) => {
             // @ts-ignore
             this.app[method.toLowerCase()](endpoint, methods[method])
-          }
+          })
         })
       }
     )
