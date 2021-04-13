@@ -7,7 +7,7 @@ export class RouteHandler {
   private app: Express
 
   constructor(folderLocation: string, app: Express) {
-    //@ts-ignore
+    // @ts-ignore
     this.folder = path.resolve(require.main?.path, folderLocation)
     this.app = app
     this.bindRoutes()
