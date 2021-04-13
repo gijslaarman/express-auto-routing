@@ -1,14 +1,15 @@
-import express, { Router } from 'express'
+import { Express } from 'express'
 import path from 'path'
 import glob from 'glob'
 
 export class RouteHandler {
   private folder: string
-  private router: Router
+  private app: Express
 
-  constructor(folderLocation: string) {
-    this.folder = path.join(__dirname, folderLocation)
-    this.router = express.Router()
+  constructor(folderLocation: string, app: Express) {
+    //@ts-ignore
+    this.folder = path.resolve(require.main?.path, folderLocation)
+    this.app = app
     this.bindRoutes()
   }
 
@@ -28,18 +29,17 @@ export class RouteHandler {
       (error: Error | null, routes: string[]) => {
         if (error) throw error
         const endpoints = this.createEndpoints(routes)
+
         routes.forEach((route, index) => {
-          this.router.use(endpoints[index], require(route).default)
+          const methods = require(route)
+          const endpoint = endpoints[index]
+          for (const method in methods) {
+            // @ts-ignore
+            this.app[method.toLowerCase()](endpoint, methods[method])
+          }
         })
       }
     )
-  }
-
-  /**
-   * getRouter
-   */
-  public Router() {
-    return this.router
   }
 }
 
