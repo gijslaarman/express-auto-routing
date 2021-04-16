@@ -14,33 +14,33 @@ export class RouteHandler {
   }
 
   private createEndpoints(routes: string[]) {
+    const fileExtensions = /(\.ts)|(\.js)/g
     return routes.map((route) => {
       return route
         .replace(this.folder, '')
-        .replace('index.ts', '')
-        .replace('.ts', '')
+        .replace('index', '')
+        .replace(fileExtensions, '')
         .replace(/\[[\w]+\]/g, (match) => ':' + match.replace(/[\[\]]/g, ''))
     })
   }
 
   private bindRoutes() {
-    glob(
-      `${this.folder}/**/[!_]*.ts`,
-      (error: Error | null, routes: string[]) => {
-        if (error) throw error
-        const endpoints = this.createEndpoints(routes)
+    const globMatcher = `${this.folder}/**/[!_]@(*.js|*.ts)`
 
-        routes.forEach((route, index) => {
-          const methods = require(route)
-          const endpoint = endpoints[index]
+    glob(globMatcher, (error: Error | null, routes: string[]) => {
+      if (error) throw error
+      const endpoints = this.createEndpoints(routes)
 
-          Object.keys(methods).forEach((method: string) => {
-            // @ts-ignore
-            this.app[method.toLowerCase()](endpoint, methods[method])
-          })
+      routes.forEach((route, index) => {
+        const methods = require(route)
+        const endpoint = endpoints[index]
+
+        Object.keys(methods).forEach((method: string) => {
+          // @ts-ignore
+          this.app[method.toLowerCase()](endpoint, methods[method])
         })
-      }
-    )
+      })
+    })
   }
 }
 
