@@ -22,7 +22,7 @@ app.listen(3000, () => console.log('Server running'))
 
 ## Installation
 
-`$ npm install @gijslaarman/express-auto-routing`
+`$ npm install express-auto-routing`
 
 ## How to use
 
