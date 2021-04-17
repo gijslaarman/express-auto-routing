@@ -73,10 +73,28 @@ export const Delete = (req, res) => {
   res.send('probably deleted some stuff')
 }
 
+// I want to add middleware to the function, e.g. to authenticate the user:
+export const post = [
+  authenticateUserMiddleware, // You can chain the middleware functions in here, just like express accepts them
+  (req, res) => {
+    res.send('my callback')
+  },
+]
+
 // Typescript:
 import { Handler } from 'express'
 
 export const get: Handler = (req, res) => {
   res.send('Hello world!')
 }
+
+// With middleware added
+import { Handler } from 'express'
+
+export const get: Handler[] = [
+  authenticateUserMiddleware,
+  (req, res) => {
+    res.send('Hello world!')
+  },
+]
 ```
