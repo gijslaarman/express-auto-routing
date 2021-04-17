@@ -1,6 +1,6 @@
 {
   "name": "express-auto-routing",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Auto generated routes based of a specified folder",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
